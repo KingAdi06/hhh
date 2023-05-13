@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Input and Display</title>
+  <style>
+    /* Add your custom CSS styles here */
+    .image-container-wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh; /* Adjust as needed */
+}
+
+.center-button {
+  text-align: center;
+}
+
+    
+    .image-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .image-container img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .image-container-wrapper {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Image Input and Display</h1>
+  
+  <div class="image-container-wrapper">
+    <div class="image-container">
+      <button onclick="selectImage(1)">Select Image 1</button>
+      <img id="image1" src="" alt="">
+    </div>
+    
+    <div class="image-container">
+      <button onclick="selectImage(2)">Select Image 2</button>
+      <img id="image2" src="" alt="">
+    </div>
+    
+    <div class="image-container">
+      <button onclick="selectImage(3)">Select Image 3</button>
+      <img id="image3" src="" alt="">
+    </div>
+  </div>
+
+  <div class="container">
+    <button class="center-button" onclick="redirectToNextPage()">Click Me</button>
+  </div>
+  <script>
+    function redirectToNextPage() {
+  window.location.href = "upload.html";
+}
+
+    function selectImage(imageNumber) {
+      var fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.accept = 'image/*';
+      fileInput.addEventListener('change', function(event) {
+        var file = event.target.files[0];
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          var imageId = 'image' + imageNumber;
+          var imageElement = document.getElementById(imageId);
+          imageElement.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+      fileInput.click();
+    }
+  </script>
+</body>
+</html>
